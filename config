@@ -119,28 +119,36 @@ set $workspace10 "10:"
 
 
 # switch to workspace
-bindsym Mod1+1 workspace $ws1
-bindsym Mod1+2 workspace $ws2
-bindsym Mod1+3 workspace $ws3
-bindsym Mod1+4 workspace $ws4
-bindsym Mod1+5 workspace $ws5
-bindsym Mod1+6 workspace $ws6
-bindsym Mod1+7 workspace $ws7
-bindsym Mod1+8 workspace $ws8
-bindsym Mod1+9 workspace $ws9
-bindsym Mod1+0 workspace $ws10
+bindsym Mod1+1 workspace $workspace1
+bindsym Mod1+2 workspace $workspace2
+bindsym Mod1+3 workspace $workspace3
+bindsym Mod1+4 workspace $workspace4
+bindsym Mod1+5 workspace $workspace5
+bindsym Mod1+6 workspace $workspace6
+bindsym Mod1+7 workspace $workspace7
+bindsym Mod1+8 workspace $workspace8
+bindsym Mod1+9 workspace $workspace9
+bindsym Mod1+0 workspace $workspace10
 
 # move focused container to workspace
-bindsym Mod1+Shift+1 move container to workspace $ws1
-bindsym Mod1+Shift+2 move container to workspace $ws2
-bindsym Mod1+Shift+3 move container to workspace $ws3
-bindsym Mod1+Shift+4 move container to workspace $ws4
-bindsym Mod1+Shift+5 move container to workspace $ws5
-bindsym Mod1+Shift+6 move container to workspace $ws6
-bindsym Mod1+Shift+7 move container to workspace $ws7
-bindsym Mod1+Shift+8 move container to workspace $ws8
-bindsym Mod1+Shift+9 move container to workspace $ws9
-bindsym Mod1+Shift+0 move container to workspace $ws10
+bindsym Mod1+Shift+1 move container to workspace $workspace1
+bindsym Mod1+Shift+2 move container to workspace $workspace2
+bindsym Mod1+Shift+3 move container to workspace $workspace3
+bindsym Mod1+Shift+4 move container to workspace $workspace4
+bindsym Mod1+Shift+5 move container to workspace $workspace5
+bindsym Mod1+Shift+6 move container to workspace $workspace6
+bindsym Mod1+Shift+7 move container to workspace $workspace7
+bindsym Mod1+Shift+8 move container to workspace $workspace8
+bindsym Mod1+Shift+9 move container to workspace $workspace9
+bindsym Mod1+Shift+0 move container to workspace $workspace10
+
+assigne [class="Chromium"] $workspace2
+
+assigne [class="libreoffice-startcenter"] $workspace3
+
+assigne [class="TelegramDesktop"] $workspace8  
+
+assigne [class="discord"] $workspace10
 
 # reload the configuration file
 bindsym Mod1+Shift+c reload
@@ -176,12 +184,50 @@ mode "resize" {
 
 bindsym Mod1+r mode "resize"
 
+set $bg-color
+set $inactive-bg-color
+set $text-color
+set $ inactive-text-color
+set $urgent-bg-color
+
+hide_edge_borders both
+
+#Gaps
+gaps inner 6
+gaps outer 6
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+        status_command i3blocks -c /etc/i3/i3blocks.conf
+        colors {
+                background bg-color
+                seperator #757575
+                #               border                  background              text
+focused_workspace               $bg-colore              $bg-color               $text-color
+inactive_workpace               $inactive-bg-color      $inactive-bg-color      $inactive-text-color
+urgent_workspace                $urgent-bg-color        $urgent-bg-color        $text-color
+    }
+    position top
+  font pango: System San Francisco Display, FontAwesome 8
+  
 }
 
+exec_always chromium
+
+exec_always feh --bg-scale /lucas/Downloads/wallpaper3.jpg
+
+exec_always compton -f
+
+exec_always compton
+
+exec_always discord
+
+exec_always xrdb .Xrecources
+
+exec_always setxkbmap -layout de
+
+bindsym $mod+shift+x exec i3lock --color "bg-color"
 #######################################################################
 # automatically start i3-config-wizard to offer the user to create a
 # keysym-based config which used their favorite modifier (alt or windows)
